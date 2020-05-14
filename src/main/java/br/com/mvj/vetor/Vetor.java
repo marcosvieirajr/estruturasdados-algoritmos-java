@@ -21,4 +21,25 @@ public class Vetor {
         return false;
     }
 
+    public int tamanho() {
+        return this.tamanho;
+    }
+
+    public String toString() {
+
+        StringBuilder retorno = new StringBuilder("[");
+        
+        for (int i = 0; i < this.tamanho - 1; i++) {
+            retorno.append(this.elementos[i]);
+            retorno.append(", ");
+        }
+        
+        if (tamanho > 0) {
+            retorno.append(this.elementos[tamanho - 1]);
+        }
+        
+        retorno.append("]");
+        
+        return retorno.toString();
+    }
 }
