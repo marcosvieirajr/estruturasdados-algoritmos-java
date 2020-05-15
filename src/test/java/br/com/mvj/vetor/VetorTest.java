@@ -2,7 +2,6 @@ package br.com.mvj.vetor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -24,22 +23,8 @@ class VetorTest {
     }
 
     @Test
-    void naoDeveAdicionarElementoNoVetorChreio() {
-
-        var vetor = new Vetor(5);
-        vetor.adiciona("1");
-        vetor.adiciona("2");
-        vetor.adiciona("3");
-        vetor.adiciona("4");
-        vetor.adiciona("5");
-        var foiAdicionado = vetor.adiciona("6");
-
-        assertFalse(foiAdicionado);
-    }
-
-    @Test
     void deveRetornarQuantidadeDeElementosDoVetor() {
-        
+
         var vetor = new Vetor(5);
 
         assertEquals(0, vetor.tamanho());
@@ -47,67 +32,104 @@ class VetorTest {
         vetor.adiciona("1");
         vetor.adiciona("2");
         vetor.adiciona("3");
-        
+
         assertEquals(3, vetor.tamanho());
-        
+
         vetor.adiciona("4");
         vetor.adiciona("5");
         vetor.adiciona("6");
         vetor.adiciona("7");
-        
-        assertEquals(5, vetor.tamanho());
+
+        assertEquals(7, vetor.tamanho());
     }
-    
+
     @Test
     public void deveRetornarToStringDoVetor() {
-        
+
         var vetor = new Vetor(5);
-        
+
         assertEquals("[]", vetor.toString());
 
         vetor.adiciona("1");
         vetor.adiciona("2");
         vetor.adiciona("3");
-        
+
         assertEquals("[1, 2, 3]", vetor.toString());
-        
+
         vetor.adiciona("4");
         vetor.adiciona("5");
         vetor.adiciona("6");
         vetor.adiciona("7");
 
-        assertEquals("[1, 2, 3, 4, 5]", vetor.toString());
+        assertEquals("[1, 2, 3, 4, 5, 6, 7]", vetor.toString());
     }
-    
+
     @Test
-    public void deveRetornarValorDeUmaPosicaoDoVetor() {
-        
+    public void deveRetornarPosicaoDeUmElementoNoVetor() {
+
         var vetor = new Vetor(5);
-        
+
         vetor.adiciona("1");
         vetor.adiciona("2");
         vetor.adiciona("3");
         vetor.adiciona("4");
         vetor.adiciona("5");
-        
-        assertEquals("1", vetor.busca(0));
-        assertEquals("5", vetor.busca(4));
-        
+
+        assertEquals(2, vetor.busca("3"));
+        assertEquals(-1, vetor.busca("0"));
+
     }
-    
+
     @Test
-    public void deveRetornarException() {
-        
+    public void deveAdicionarElementoEmUmaPosicaoDoVetor() {
+
+        var vetor = new Vetor(5);
+
+        vetor.adiciona("1");
+        vetor.adiciona("2");
+        vetor.adiciona("3");
+        vetor.adiciona("4");
+
+        vetor.adiciona(0, "0");
+
+        assertEquals(0, vetor.busca("0"));
+        assertEquals(4, vetor.busca("4"));
+
+        vetor.adiciona(2, "9");
+
+        assertEquals(0, vetor.busca("0"));
+        assertEquals(2, vetor.busca("9"));
+        assertEquals(4, vetor.busca("3"));
+        assertEquals(6, vetor.tamanho());
+    }
+
+    @Test
+    public void deveRetornarExceptionSeAdicionarEmIndiceMenorQueZero() {
+
         Exception ex = assertThrows(IllegalArgumentException.class, () -> {
+
             var vetor = new Vetor(5);
             vetor.adiciona("1");
             vetor.adiciona("2");
             vetor.adiciona("3");
             vetor.adiciona("4");
-            vetor.adiciona("5");
-            vetor.busca(5);
+            assertFalse(vetor.adiciona(-1, "0"));
         });
         assertEquals("Posição inválida", ex.getMessage());
-        
+    }
+
+    @Test
+    public void deveRetornarExceptionSeAdicionarEmIndiceMaiorQueTamanho() {
+
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> {
+
+            var vetor = new Vetor(5);
+            vetor.adiciona("1");
+            vetor.adiciona("2");
+            vetor.adiciona("3");
+            vetor.adiciona("4");
+            vetor.adiciona(10, "0");
+        });
+        assertEquals("Posição inválida", ex.getMessage());
     }
 }

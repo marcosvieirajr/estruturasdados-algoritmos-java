@@ -11,14 +11,24 @@ public class Vetor {
     }
 
     public boolean adiciona(String elemento) {
+        aumentaCapacidade();
 
-        if (this.tamanho < elementos.length) {
-            this.elementos[this.tamanho] = elemento;
-            this.tamanho++;
-            return true;
+        this.elementos[this.tamanho] = elemento;
+        this.tamanho++;
+        return true;
+    }
+
+    public boolean adiciona(int posicao, String elemento) {
+        aumentaCapacidade();
+        if (posicao < 0 || posicao >= tamanho)
+            throw new IllegalArgumentException("Posição inválida");
+
+        for (int i = tamanho() - 1; i >= posicao; i--) {
+            elementos[i + 1] = elementos[i];
         }
-
-        return false;
+        elementos[posicao] = elemento;
+        tamanho++;
+        return true;
     }
 
     public int tamanho() {
@@ -28,23 +38,36 @@ public class Vetor {
     public String toString() {
 
         StringBuilder retorno = new StringBuilder("[");
-        
+
         for (int i = 0; i < this.tamanho - 1; i++) {
             retorno.append(this.elementos[i]);
             retorno.append(", ");
         }
-        
+
         if (tamanho > 0) {
             retorno.append(this.elementos[tamanho - 1]);
         }
-        
+
         retorno.append("]");
-        
+
         return retorno.toString();
     }
 
-    public String busca(int posicao) {
-        if (posicao < 0 || posicao >= this.tamanho()) throw new IllegalArgumentException("Posição inválida");
-        return elementos[posicao];
+    public int busca(String string) {
+        for (int i = 0; i < elementos.length; i++) {
+            if (string != null && string.equals(elementos[i]))
+                return i;
+        }
+        return -1;
+    }
+
+    private void aumentaCapacidade() {
+        if (tamanho == elementos.length) {
+            var tmp = new String[elementos.length * 2];
+            for (int i = 0; i < tamanho; i++) {
+                tmp[i] = elementos[i];
+            }
+            elementos = tmp;
+        }
     }
 }

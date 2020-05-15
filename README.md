@@ -8,7 +8,8 @@ Revisão de conceitos de estruturas de dados e algoritmos com Java
 - [x] Verificar quantidade de elmentos no vetor
 - [x] Imprimir elementos do vetor
 - [x] Obter elemento de uma posição
-- [ ] Verificar se um elemento exite no vetor
+- [x] Verificar se elemento exite no vetor
+- [x] Adicionar elemento em qualquer posição
 - [ ] Remover elemento do vetor
 
 ## Pilha (Stack)
