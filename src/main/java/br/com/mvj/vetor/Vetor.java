@@ -30,6 +30,18 @@ public class Vetor {
         tamanho++;
         return true;
     }
+    
+    public boolean remove(int posicao) {
+        
+        if (posicao < 0 || posicao >= tamanho)
+            throw new IllegalArgumentException("Posição inválida");
+        
+        for (int i = posicao; i < tamanho -1; i++) {
+            elementos[i] = elementos[i +1];
+        }
+        tamanho--;
+        return true;
+    }
 
     public int tamanho() {
         return this.tamanho;

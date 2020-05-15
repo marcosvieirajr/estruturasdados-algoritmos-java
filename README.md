@@ -10,7 +10,7 @@ Revisão de conceitos de estruturas de dados e algoritmos com Java
 - [x] Obter elemento de uma posição
 - [x] Verificar se elemento exite no vetor
 - [x] Adicionar elemento em qualquer posição
-- [ ] Remover elemento do vetor
+- [x] Remover elemento do vetor
 
 ## Pilha (Stack)
 

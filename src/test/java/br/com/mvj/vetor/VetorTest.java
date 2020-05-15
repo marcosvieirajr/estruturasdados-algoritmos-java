@@ -132,4 +132,21 @@ class VetorTest {
         });
         assertEquals("Posição inválida", ex.getMessage());
     }
+    
+    @Test
+    public void deveRemoverElementoEmUmaPosicaoDoVetor() {
+
+        var vetor = new Vetor(5);
+
+        vetor.adiciona("1");
+        vetor.adiciona("2");
+        vetor.adiciona("3");
+        vetor.adiciona("4");
+
+        vetor.remove(0);
+
+        assertEquals(-1, vetor.busca("1"));
+        assertEquals(0, vetor.busca("2"));
+        assertEquals(3, vetor.tamanho());
+    }
 }
