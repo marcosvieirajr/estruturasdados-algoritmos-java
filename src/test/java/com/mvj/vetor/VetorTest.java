@@ -1,4 +1,4 @@
-package br.com.mvj.vetor;
+package com.mvj.vetor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -132,7 +132,7 @@ class VetorTest {
         });
         assertEquals("Posição inválida", ex.getMessage());
     }
-    
+
     @Test
     public void deveRemoverElementoEmUmaPosicaoDoVetor() {
 
@@ -149,4 +149,53 @@ class VetorTest {
         assertEquals(0, vetor.busca("2"));
         assertEquals(3, vetor.tamanho());
     }
+
+    @Test
+    public void deveRemoverElemento() {
+
+        var vetor = new Vetor(5);
+
+        vetor.adiciona("1");
+        vetor.adiciona("2");
+        vetor.adiciona("3");
+        vetor.adiciona("4");
+
+        vetor.remove("1");
+
+        assertEquals(-1, vetor.busca("1"));
+        assertEquals(0, vetor.busca("2"));
+        assertEquals(3, vetor.tamanho());
+    }
+
+    @Test
+    public void deveRetornarTrueCasaContenhaElemanto() {
+
+        var vetor = new Vetor<String>(5);
+
+        vetor.adiciona("1");
+        vetor.adiciona("2");
+        vetor.adiciona("3");
+        vetor.adiciona("4");
+
+        assertTrue(vetor.contem("1"));
+        assertFalse(vetor.contem("0"));
+    }
+
+    @Test
+    public void deveRetornarIndiceDoUltimoElemanto() {
+
+        var vetor = new Vetor<String>(5);
+
+        vetor.adiciona("0");
+        vetor.adiciona("2");
+        vetor.adiciona("0");
+        vetor.adiciona("4");
+
+        assertEquals(2, vetor.ultimoIndiceDe("0"));
+        assertEquals(1, vetor.ultimoIndiceDe("2"));
+        assertEquals(-1, vetor.ultimoIndiceDe("5"));
+        assertEquals(-1, vetor.ultimoIndiceDe(null));
+    }
+
+
 }

@@ -1,16 +1,16 @@
-package br.com.mvj.vetor;
+package com.mvj.vetor;
 
-public class Vetor {
+public class Vetor<T> {
 
-    private String[] elementos;
+    private T[] elementos;
     private int tamanho;
 
     public Vetor(int capacidade) {
-        this.elementos = new String[capacidade];
+        this.elementos = (T[]) new Object[capacidade];
         this.tamanho = 0;
     }
 
-    public boolean adiciona(String elemento) {
+    public boolean adiciona(T elemento) {
         aumentaCapacidade();
 
         this.elementos[this.tamanho] = elemento;
@@ -18,7 +18,7 @@ public class Vetor {
         return true;
     }
 
-    public boolean adiciona(int posicao, String elemento) {
+    public boolean adiciona(int posicao, T elemento) {
         aumentaCapacidade();
         if (posicao < 0 || posicao >= tamanho)
             throw new IllegalArgumentException("Posição inválida");
@@ -30,17 +30,43 @@ public class Vetor {
         tamanho++;
         return true;
     }
-    
+
     public boolean remove(int posicao) {
-        
+
         if (posicao < 0 || posicao >= tamanho)
             throw new IllegalArgumentException("Posição inválida");
-        
+
         for (int i = posicao; i < tamanho -1; i++) {
             elementos[i] = elementos[i +1];
         }
         tamanho--;
         return true;
+    }
+
+    public boolean remove(T elemento) {
+        if (elemento == null) return false;
+        return remove(busca(elemento));
+    }
+
+    public int busca(T elemento) {
+        if (elemento == null) return -1;
+        for (int i = 0; i < elementos.length; i++) {
+            if (elemento.equals(elementos[i])) return i;
+        }
+        return -1;
+    }
+
+    public boolean contem(T elemento) {
+        return busca(elemento) > -1;
+    }
+
+    public int ultimoIndiceDe(T elemento) {
+        var indice = -1;
+        if (elemento == null) return indice;
+        for (int i = tamanho -1; i>=0; i--){
+            if (elemento.equals(elementos[i])) return i;
+        }
+        return indice;
     }
 
     public int tamanho() {
@@ -52,7 +78,7 @@ public class Vetor {
         StringBuilder retorno = new StringBuilder("[");
 
         for (int i = 0; i < this.tamanho - 1; i++) {
-            retorno.append(this.elementos[i]);
+            retorno.append(this.elementos[i].toString());
             retorno.append(", ");
         }
 
@@ -65,17 +91,9 @@ public class Vetor {
         return retorno.toString();
     }
 
-    public int busca(String string) {
-        for (int i = 0; i < elementos.length; i++) {
-            if (string != null && string.equals(elementos[i]))
-                return i;
-        }
-        return -1;
-    }
-
     private void aumentaCapacidade() {
         if (tamanho == elementos.length) {
-            var tmp = new String[elementos.length * 2];
+            var tmp = (T[]) new Object[elementos.length * 2];
             for (int i = 0; i < tamanho; i++) {
                 tmp[i] = elementos[i];
             }
