@@ -1,5 +1,7 @@
 package com.mvj.vetor;
 
+import java.util.Objects;
+
 public class Vetor<T> {
 
     private T[] elementos;
@@ -99,5 +101,10 @@ public class Vetor<T> {
             }
             elementos = tmp;
         }
+    }
+
+    public void limpar() {
+        elementos = (T[]) new Objects[this.elementos.length];
+        tamanho = 0;
     }
 }

@@ -151,6 +151,20 @@ class VetorTest {
     }
 
     @Test
+    public void deveRetornarExceptionSeRemoverEmIndiceMenorQueZero() {
+
+        var vetor = new Vetor(5);
+
+        vetor.adiciona("1");
+        vetor.adiciona("2");
+
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> {
+            vetor.remove(-1);
+        });
+        assertEquals("Posição inválida", ex.getMessage());
+    }
+
+    @Test
     public void deveRemoverElemento() {
 
         var vetor = new Vetor(5);
@@ -197,5 +211,19 @@ class VetorTest {
         assertEquals(-1, vetor.ultimoIndiceDe(null));
     }
 
+    @Test
+    public void deveLimparVetor(){
+        var vetor = new Vetor<String>(5);
+
+        vetor.adiciona("0");
+        vetor.adiciona("2");
+        vetor.adiciona("0");
+        vetor.adiciona("4");
+
+        vetor.limpar();
+
+        assertFalse(vetor.contem("4"));
+        assertEquals(0, vetor.tamanho());
+    }
 
 }
