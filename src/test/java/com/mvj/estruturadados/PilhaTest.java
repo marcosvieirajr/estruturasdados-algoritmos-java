@@ -19,8 +19,11 @@ public class PilhaTest {
     }
 
     @Test
-    void deveElementoTopo() {
+    void deveRetornarElementoTopo() {
         var pihla = new Pilha<String>();
+
+        assertEquals(null, pihla.topo());
+
         pihla.empilha("0");
         pihla.empilha("1");
         pihla.empilha("2");
@@ -31,6 +34,9 @@ public class PilhaTest {
     @Test
     void deveDesempilharElementoTopo() {
         var pihla = new Pilha<String>(5);
+
+        assertEquals(null, pihla.desempilha());
+
         pihla.empilha("0");
         pihla.empilha("1");
         pihla.empilha("2");
