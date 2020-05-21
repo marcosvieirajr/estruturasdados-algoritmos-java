@@ -16,4 +16,13 @@ public class Pilha<T> extends EstruturaEstatica<T> {
         adiciona(elemento);
     }
 
+    public T topo() {
+        return elementos[tamanho-1];
+    }
+
+    public T desempilha () {
+        var retorno = topo();
+        remove(tamanho -1);
+        return retorno;
+    }
 }
