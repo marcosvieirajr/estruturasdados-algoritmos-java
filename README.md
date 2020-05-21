@@ -14,6 +14,10 @@ Revisão de conceitos de estruturas de dados e algoritmos com Java
 
 ## Pilha (Stack)
 
+- [x] Empilhar elemento
+- [x] Obter elemento do topo da pilha
+- [x] Desempilhar elemento
+
 ## Fila (Queue)
 
 ## Lista Encadeada (Linked List)
