@@ -1,4 +1,4 @@
-package com.mvj.vetor;
+package com.mvj.estruturadados;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -213,7 +213,7 @@ class VetorTest {
 
     @Test
     public void deveLimparVetor(){
-        var vetor = new Vetor<String>(5);
+        var vetor = new Vetor<String>();
 
         vetor.adiciona("0");
         vetor.adiciona("2");
