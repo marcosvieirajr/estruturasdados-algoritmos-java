@@ -17,6 +17,9 @@ Revisão de conceitos de estruturas de dados e algoritmos com Java
 - [x] Empilhar elemento
 - [x] Obter elemento do topo da pilha
 - [x] Desempilhar elemento
+- [x] Verificar quantidade de elmentos na pilha
+- [x] Imprimir elementos da pilha
+- [x] Verificar se elemento exite na pilha
 
 ## Fila (Queue)
 
