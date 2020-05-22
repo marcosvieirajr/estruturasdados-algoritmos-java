@@ -16,7 +16,7 @@ public class Vetor<T> extends EstruturaEstatica<T> {
 
     public boolean adiciona(int posicao, T elemento) {
         aumentaCapacidade();
-        if (posicao < 0 || posicao >= tamanho)
+        if (posicao < 0 || posicao > elementos.length)
             throw new IllegalArgumentException("Posição inválida");
 
         for (int i = tamanho() - 1; i >= posicao; i--) {
