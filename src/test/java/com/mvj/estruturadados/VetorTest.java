@@ -1,13 +1,14 @@
 package com.mvj.estruturadados;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 class VetorTest {
+
+    //https://assertj.github.io/doc/#assertj-overview
 
     @Test
     void deveAdicionarElementoNoVetor() {
@@ -19,7 +20,7 @@ class VetorTest {
         vetor.adiciona("4");
         var foiAdicionado = vetor.adiciona("5");
 
-        assertTrue(foiAdicionado);
+        assertThat(foiAdicionado).isTrue();
     }
 
     @Test
@@ -27,20 +28,20 @@ class VetorTest {
 
         var vetor = new Vetor(5);
 
-        assertEquals(0, vetor.tamanho());
+        assertThat(vetor.tamanho()).isEqualTo(0);
 
         vetor.adiciona("1");
         vetor.adiciona("2");
         vetor.adiciona("3");
 
-        assertEquals(3, vetor.tamanho());
+        assertThat(vetor.tamanho()).isEqualTo(3);
 
         vetor.adiciona("4");
         vetor.adiciona("5");
         vetor.adiciona("6");
         vetor.adiciona("7");
 
-        assertEquals(7, vetor.tamanho());
+        assertThat(vetor.tamanho()).isEqualTo(7);
     }
 
     @Test
@@ -48,20 +49,20 @@ class VetorTest {
 
         var vetor = new Vetor(5);
 
-        assertEquals("[]", vetor.toString());
+        assertThat(vetor.toString()).isEqualTo("[]");
 
         vetor.adiciona("1");
         vetor.adiciona("2");
         vetor.adiciona("3");
 
-        assertEquals("[1, 2, 3]", vetor.toString());
+        assertThat(vetor.toString()).isEqualTo("[1, 2, 3]");
 
         vetor.adiciona("4");
         vetor.adiciona("5");
         vetor.adiciona("6");
         vetor.adiciona("7");
 
-        assertEquals("[1, 2, 3, 4, 5, 6, 7]", vetor.toString());
+        assertThat(vetor.toString()).isEqualTo("[1, 2, 3, 4, 5, 6, 7]");
     }
 
     @Test
@@ -75,8 +76,8 @@ class VetorTest {
         vetor.adiciona("4");
         vetor.adiciona("5");
 
-        assertEquals(2, vetor.busca("3"));
-        assertEquals(-1, vetor.busca("0"));
+        assertThat(vetor.busca("3")).isEqualTo(2);
+        assertThat(vetor.busca("0")).isEqualTo(-1);
 
     }
 
@@ -92,45 +93,51 @@ class VetorTest {
 
         vetor.adiciona(0, "0");
 
-        assertEquals(0, vetor.busca("0"));
-        assertEquals(4, vetor.busca("4"));
+        assertThat(vetor.busca("0")).isEqualTo(0);
+        assertThat(vetor.busca("4")).isEqualTo(4);
 
         vetor.adiciona(2, "9");
 
-        assertEquals(0, vetor.busca("0"));
-        assertEquals(2, vetor.busca("9"));
-        assertEquals(4, vetor.busca("3"));
-        assertEquals(6, vetor.tamanho());
+        assertThat(vetor.busca("0")).isEqualTo(0);
+        assertThat(vetor.busca("9")).isEqualTo(2);
+        assertThat(vetor.busca("3")).isEqualTo(4);
+        assertThat(vetor.tamanho()).isEqualTo(6);
     }
 
     @Test
     public void deveRetornarExceptionSeAdicionarEmIndiceMenorQueZero() {
 
-        Exception ex = assertThrows(IllegalArgumentException.class, () -> {
+        var vetor = new Vetor(5);
+        vetor.adiciona("1");
+        vetor.adiciona("2");
+        vetor.adiciona("3");
+        vetor.adiciona("4");
 
-            var vetor = new Vetor(5);
-            vetor.adiciona("1");
-            vetor.adiciona("2");
-            vetor.adiciona("3");
-            vetor.adiciona("4");
-            assertFalse(vetor.adiciona(-1, "0"));
-        });
-        assertEquals("Posição inválida", ex.getMessage());
+//        assertThatThrownBy(() -> {
+//            vetor.adiciona(-1, "0");
+//        }).isInstanceOf(IllegalArgumentException.class)
+//            .hasMessage("Posição inválida");
+
+//        assertThatExceptionOfType(IllegalArgumentException.class)
+//            .isThrownBy(() -> {
+//                vetor.adiciona(-1, "0");
+//            }).withMessage("Posição inválida");
+
+        assertThatIllegalArgumentException().isThrownBy(() -> {
+            vetor.adiciona(-1, "0");
+        }).withMessage("Posição inválida");
     }
 
     @Test
     public void deveRetornarExceptionSeAdicionarEmIndiceMaiorQueTamanho() {
 
-        Exception ex = assertThrows(IllegalArgumentException.class, () -> {
+        var vetor = new Vetor(5);
+        vetor.adiciona(0, "0");
+        vetor.adiciona(1, "1");
 
-            var vetor = new Vetor(5);
-            vetor.adiciona("1");
-            vetor.adiciona("2");
-            vetor.adiciona("3");
-            vetor.adiciona("4");
-            vetor.adiciona(10, "0");
-        });
-        assertEquals("Posição inválida", ex.getMessage());
+        assertThatIllegalArgumentException().isThrownBy(() -> {
+            vetor.adiciona(10, "2");
+        }).withMessage("Posição inválida");
     }
 
     @Test
@@ -145,23 +152,21 @@ class VetorTest {
 
         vetor.remove(0);
 
-        assertEquals(-1, vetor.busca("1"));
-        assertEquals(0, vetor.busca("2"));
-        assertEquals(3, vetor.tamanho());
+        assertThat(vetor.busca("1")).isEqualTo(-1);
+        assertThat(vetor.busca("2")).isEqualTo(0);
+        assertThat(vetor.tamanho()).isEqualTo(3);
     }
 
     @Test
     public void deveRetornarExceptionSeRemoverEmIndiceMenorQueZero() {
 
         var vetor = new Vetor(5);
-
         vetor.adiciona("1");
         vetor.adiciona("2");
 
-        Exception ex = assertThrows(IllegalArgumentException.class, () -> {
+        assertThatIllegalArgumentException().isThrownBy(() -> {
             vetor.remove(-1);
-        });
-        assertEquals("Posição inválida", ex.getMessage());
+        }).withMessage("Posição inválida");
     }
 
     @Test
@@ -176,9 +181,9 @@ class VetorTest {
 
         vetor.remove("1");
 
-        assertEquals(-1, vetor.busca("1"));
-        assertEquals(0, vetor.busca("2"));
-        assertEquals(3, vetor.tamanho());
+        assertThat(vetor.busca("1")).isEqualTo(-1);
+        assertThat(vetor.busca("2")).isEqualTo(0);
+        assertThat(vetor.tamanho()).isEqualTo(3);
     }
 
     @Test
@@ -191,8 +196,8 @@ class VetorTest {
         vetor.adiciona("3");
         vetor.adiciona("4");
 
-        assertTrue(vetor.contem("1"));
-        assertFalse(vetor.contem("0"));
+        assertThat(vetor.contem("1")).isTrue();
+        assertThat(vetor.contem("0")).isFalse();
     }
 
     @Test
@@ -205,14 +210,14 @@ class VetorTest {
         vetor.adiciona("0");
         vetor.adiciona("4");
 
-        assertEquals(2, vetor.ultimoIndiceDe("0"));
-        assertEquals(1, vetor.ultimoIndiceDe("2"));
-        assertEquals(-1, vetor.ultimoIndiceDe("5"));
-        assertEquals(-1, vetor.ultimoIndiceDe(null));
+        assertThat(vetor.ultimoIndiceDe("0")).isEqualTo(2);
+        assertThat(vetor.ultimoIndiceDe("2")).isEqualTo(1);
+        assertThat(vetor.ultimoIndiceDe("5")).isEqualTo(-1);
+        assertThat(vetor.ultimoIndiceDe(null)).isEqualTo(-1);
     }
 
     @Test
-    public void deveLimparVetor(){
+    public void deveLimparVetor() {
         var vetor = new Vetor<String>();
 
         vetor.adiciona("0");
@@ -222,8 +227,8 @@ class VetorTest {
 
         vetor.limpar();
 
-        assertFalse(vetor.contem("4"));
-        assertEquals(0, vetor.tamanho());
+        assertThat(vetor.contem("4")).isFalse();
+        assertThat(vetor.tamanho()).isEqualTo(0);
     }
 
 }

@@ -2,6 +2,7 @@ package com.mvj.estruturadados;
 
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -14,28 +15,28 @@ public class PilhaTest {
         pihla.empilha("1");
         pihla.empilha("2");
 
-        assertEquals(3, pihla.tamanho());
-        assertEquals("[0, 1, 2]", pihla.toString());
+        assertThat( pihla.tamanho()).isEqualTo(3);
+        assertThat( pihla.toString()).isEqualTo("[0, 1, 2]");
     }
 
     @Test
     void deveRetornarElementoTopo() {
         var pihla = new Pilha<String>();
 
-        assertEquals(null, pihla.topo());
+        assertThat( pihla.topo()).isEqualTo(null);
 
         pihla.empilha("0");
         pihla.empilha("1");
         pihla.empilha("2");
 
-        assertEquals("2", pihla.topo());
+        assertThat( pihla.topo()).isEqualTo("2");
     }
 
     @Test
     void deveDesempilharElementoTopo() {
         var pihla = new Pilha<String>(5);
 
-        assertEquals(null, pihla.desempilha());
+        assertThat( pihla.desempilha()).isEqualTo(null);
 
         pihla.empilha("0");
         pihla.empilha("1");
@@ -43,7 +44,7 @@ public class PilhaTest {
 
         var desempilhado = pihla.desempilha();
 
-        assertEquals("2", desempilhado);
-        assertEquals(2, pihla.tamanho());
+        assertThat( desempilhado).isEqualTo("2");
+        assertThat( pihla.tamanho()).isEqualTo(2);
     }
 }
